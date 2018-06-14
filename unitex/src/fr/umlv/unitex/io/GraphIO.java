@@ -858,11 +858,13 @@ public class GraphIO {
 		g.setY_out(g.getY_in());
 		if (n != 1) {
 			// 1 is the final state, which content is <E>
-			g.setContentWithBounds(s);
+			// previously setContentWithBounds
+			g.setContent(s);
 			// we will need to call g.update() to size the box according to the
 			// text
 		} else {
-			g.setContentWithBounds("<E>");
+			// previously setContentWithBounds
+			g.setContent("<E>");
 			g.setX_in(g.getX());
 			g.setY_in(g.getY());
 			g.setX1(g.getX());

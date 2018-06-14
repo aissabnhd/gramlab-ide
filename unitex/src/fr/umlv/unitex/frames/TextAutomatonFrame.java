@@ -73,6 +73,7 @@ import java.util.regex.PatternSyntaxException;
  * @author Sébastien Paumier
  */
 public class TextAutomatonFrame extends TfstFrame {
+	
 	final TagFilter filter = new TagFilter();
 	final TfstTableModel tfstTableModel = new TfstTableModel(filter, true);
 	final JTextArea sentenceTextArea = new JTextArea();
@@ -86,19 +87,6 @@ public class TextAutomatonFrame extends TfstFrame {
 	JScrollBar tfstScrollbar;
 	TfstGraphicalZone graphicalZone;
 	public JScrollPane scrollPane;
-	private final GraphListener listener = new GraphListener() {
-		@Override
-		public void graphChanged(boolean m) {
-			if (m)
-				setModified(true);
-			repaint();
-		}
-	};
-
-	public TfstGraphicalZone getGraphicalZone() {
-		return graphicalZone;
-	}
-
 	private final TfstTextField textfield = new TfstTextField(25, this);
 	boolean modified = false;
 	int sentence_count = 0;
@@ -114,10 +102,25 @@ public class TextAutomatonFrame extends TfstFrame {
 	Process currentElagLoadingProcess = null;
 	JSplitPane superpanel;
 	JButton revertSentenceGraph;
-  private JButton undoButton;
-  private JButton redoButton;
-  private UndoManager manager = new UndoManager();
+	private JButton undoButton;
+	private JButton redoButton;
+	private UndoManager manager = new UndoManager();
 
+	
+	private final GraphListener listener = new GraphListener() {
+		@Override
+		public void graphChanged(boolean m) {
+			if (m)
+				setModified(true);
+			repaint();
+		}
+	};
+
+	public TfstGraphicalZone getGraphicalZone() {
+		return graphicalZone;
+	}
+	
+	/* Constructor */
 	TextAutomatonFrame() {
 		super("FST-Text", true, true, true, true);
 		DropTargetManager.getDropTarget().newDropTarget(this);
@@ -161,7 +164,11 @@ public class TextAutomatonFrame extends TfstFrame {
 		KeyUtil.addMinimizeFrameListener(panel);
 		return panel;
 	}
-
+	
+	/**
+	 * This method builds the Bottom Left panel of the FST-Text frame.
+	 * @return Bottom Left <code>JPanel</code>
+	 */
 	private JPanel constructTextPanel() {
 		final JPanel textframe = new JPanel(new BorderLayout());
 		final JPanel p = new JPanel(new GridLayout(4, 1));
@@ -509,14 +516,14 @@ public class TextAutomatonFrame extends TfstFrame {
 		revertSentenceGraph = new JButton(revertSentenceAction);
 		revertSentenceGraph.setVisible(false);
 		cornerPanel.add(revertSentenceGraph);
-    undoButton = new JButton("Undo");
-    undoButton.setEnabled(false);
-    undoButton.addActionListener(new UndoIt());
-    cornerPanel.add(undoButton);
-    redoButton = new JButton("Redo");
-    redoButton.setEnabled(false);
-    redoButton.addActionListener(new RedoIt());
-    cornerPanel.add(redoButton);
+	    undoButton = new JButton("Undo");
+	    undoButton.setEnabled(false);
+	    undoButton.addActionListener(new UndoIt());
+	    cornerPanel.add(undoButton);
+	    redoButton = new JButton("Redo");
+	    redoButton.setEnabled(false);
+	    redoButton.addActionListener(new RedoIt());
+	    cornerPanel.add(redoButton);
 		final Action saveAction = new AbstractAction("Save") {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -572,7 +579,7 @@ public class TextAutomatonFrame extends TfstFrame {
     updateDoUndoButtons();
   }
 
-  /**
+  	/**
 	 * Shows the frame
 	 */
 	boolean loadTfst() {
@@ -671,7 +678,7 @@ public class TextAutomatonFrame extends TfstFrame {
 	boolean loadSentence(int n) {
 		if (n < 1 || n > sentence_count)
 			return false;
-    reinitializeUndoManager();
+		reinitializeUndoManager();
 		final int z = n;
 		if (isAcurrentLoadingThread)
 			return false;

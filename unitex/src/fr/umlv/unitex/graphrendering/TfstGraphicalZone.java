@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 
@@ -58,9 +59,15 @@ import fr.umlv.unitex.undo.SelectEdit;
  */
 public class TfstGraphicalZone extends GenericGraphicalZone implements
 		Printable {
-
+	
+	private HashMap<Integer,TaggingState[]> stateSelection=new HashMap<Integer,TaggingState[]>();
 	TaggingModel model;
 	int sentence=-1;
+	boolean hasMoved = false;
+	boolean scrollingWhileTagging = false;
+	int X_start_scrolling;
+	int Y_start_scrolling;
+	Point originalViewPoint;
 
 	/**
 	 * Constructs a new <code>TfstGraphicalZone</code>.
@@ -96,11 +103,7 @@ public class TfstGraphicalZone extends GenericGraphicalZone implements
 		return new TfstGraphBox(x, y, type, (TfstGraphicalZone) p);
 	}
 
-	boolean hasMoved = false;
-	boolean scrollingWhileTagging = false;
-	int X_start_scrolling;
-	int Y_start_scrolling;
-	Point originalViewPoint;
+	
 
 	class FstGraphMouseListener extends MouseAdapter {
 		final MouseMotionListener motionListener = new FstGraphMouseMotionListener();
@@ -436,8 +439,7 @@ public class TfstGraphicalZone extends GenericGraphicalZone implements
 		}
 	}
 
-
-	private HashMap<Integer,TaggingState[]> stateSelection=new HashMap<Integer,TaggingState[]>();
+	
 
 	public void setup(GraphIO g,int sentence) {
 		/* First, we save the previous state selection if any */

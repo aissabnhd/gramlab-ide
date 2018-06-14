@@ -128,7 +128,12 @@ public class TfstGraphBox extends GenericGraphBox {
 		}
 		transduction = infos;
 	}
-
+	/** @Yass
+	 * This function takes a String and reads up the available integers and assign the values to the box's <code>Bounds</code> field.
+	 * 
+	 * @param s
+	 * 			The string holding the bounds' coordinates.
+	 */
 	private void readTokenInfos(String s) {
 		final Scanner scanner = new Scanner(s);
 		try {
@@ -159,11 +164,11 @@ public class TfstGraphBox extends GenericGraphBox {
 		}
 	}
 
-	/**
-	 * Sets the content of the box
+	/** @Yass
+	 * Sets the content of the box with the given sentence.
 	 * 
 	 * @param s
-	 *            the content
+	 *            the new content
 	 */
 	@Override
 	public void setContent(String s) {
@@ -189,30 +194,30 @@ public class TfstGraphBox extends GenericGraphBox {
 		Y1 = Y - Height / 2;
 		X_out = X + Width + 5;
 	}
-
-	public void setContentWithBounds(String s) {
-		if (type == FINAL)
-			return; // nothing to do if we consider the final state
-		content = s;
-		String tmp = "";
-		n_lines = 0;
-		tmp = s;
-		transduction = "";
-		lines.clear();
-		greyed.clear();
-		tokenizeText(s, true);
-		if (!tmp.equals("<E>")) {
-			// dimensions of a full box
-			Width = maxLineWidth() + 10;
-			Height = n_lines * get_h_ligne() + 6;
-		} else {
-			// dimensions of an empty box
-			Height = 20;
-			Width = 15;
-		}
-		Y1 = Y - Height / 2;
-		X_out = X + Width + 5;
-	}
+//
+//	public void setContentWithBounds(String s) {
+//		if (type == FINAL)
+//			return; // nothing to do if we consider the final state
+//		content = s;
+//		String tmp = "";
+//		n_lines = 0;
+//		tmp = s;
+//		transduction = "";
+//		lines.clear();
+//		greyed.clear();
+//		tokenizeText(s, true);
+//		if (!tmp.equals("<E>")) {
+//			// dimensions of a full box
+//			Width = maxLineWidth() + 10;
+//			Height = n_lines * get_h_ligne() + 6;
+//		} else {
+//			// dimensions of an empty box
+//			Height = 20;
+//			Width = 15;
+//		}
+//		Y1 = Y - Height / 2;
+//		X_out = X + Width + 5;
+//	}
 
 	public Bounds getBounds() {
 		return bounds;
@@ -224,7 +229,7 @@ public class TfstGraphBox extends GenericGraphBox {
 
 	private final BasicStroke morphologicalStroke = new BasicStroke(2,
 			BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 2, new float[] { 10f,
-					10f }, 4f);
+			10f }, 4f);
 
 	/**
 	 * Draws a transition to a box. Modified from GenericGraphBox in order to
@@ -245,28 +250,39 @@ public class TfstGraphBox extends GenericGraphBox {
 			super.drawTransition(g, dest, params);
 		}
 	}
-
+	
+	/** @Yass
+	 * This method checks if this box and the one given as an argument share the same connecting coordinates,
+	 * i.e. the ending coordinates for the first box and the starting coordinates for the next box, thus being the same token.
+	 * @param box
+	 * 			the next box.
+	 * @return True if both boxes are in the same token, False otherwise
+	 */
 	public boolean isNextBoxInSameToken(TfstGraphBox box) {
 		if (box.bounds != null) {
 			if (bounds != null
-					&& bounds.getEnd_in_tokens() < box.bounds
-							.getStart_in_tokens())
+					   && bounds.getEnd_in_tokens()
+					< box.bounds.getStart_in_tokens())
 				return false;
 			if (box.bounds.getStart_in_chars() != 0
 					|| box.bounds.getStart_in_letters() != 0
 					|| box.content.startsWith("{<E>,")
 					|| box.bounds.equals(bounds)
 					|| (content.startsWith("{<E>,")
-							&& bounds.getEnd_in_tokens() == box.bounds
-									.getStart_in_tokens() && bounds
-							.getEnd_in_chars() == box.bounds
-							.getStart_in_chars())) {
+							 && bounds.getEnd_in_tokens() ==
+							box.bounds.getStart_in_tokens()
+							 && bounds.getEnd_in_chars() ==
+							box.bounds.getStart_in_chars())) {
 				return true;
 			}
 		}
 		return false;
 	}
-
+	
+	/** @Yass
+	 * This method applies specific graph coloring if Unitex is set to use Korean.
+	 * @see fr.umlv.unitex.graphrendering.GenericGraphBox#drawOther(java.awt.Graphics2D, fr.umlv.unitex.graphrendering.DrawGraphParams)
+	 */
 	@Override
 	void drawOther(Graphics2D g, DrawGraphParams params) {
 		final Color old = params.getBackgroundColor();
