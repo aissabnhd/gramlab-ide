@@ -22,13 +22,14 @@ package fr.umlv.unitex.tfst.tagging;
 
 public enum TaggingState {
 	/* The box has been selected by the user */
+	/* in actuality, a SELECTED box is a box which is both accessible and coaccessible */
 	SELECTED,
-	/*
-	 * The box is competing with a selected box and so, must be discarded
-	 */
+	/* The box is competing with a selected box and so, must be discarded  */
+	/* This state could be used to check the new boxes added to the existing connected part of the graph */
 	TO_BE_REMOVED,
 	/* The box is not both accessible and co-accessible */
 	USELESS,
 	/* None of previous cases */
+	/* Parallel boxes are tagged NEUTRAL */
 	NEUTRAL
 }

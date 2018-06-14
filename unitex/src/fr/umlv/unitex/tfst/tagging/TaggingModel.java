@@ -65,8 +65,6 @@ public class TaggingModel {
 		}
 	};
 	
-	
-
 	public TaggingModel(TfstGraphicalZone zone) {
 		this.zone = zone;
 		registerListeners();
@@ -361,7 +359,7 @@ public class TaggingModel {
 		linearTfst = isLinearAutomaton();
 	}
 
-	/** @Yass
+	/** 
 	 * Once we have set n as a selected box, we look if all its outgoing
 	 * transitions point to TO_BE_REMOVED states. If so, those states are
 	 * recursively made neutral.
@@ -389,7 +387,7 @@ public class TaggingModel {
 		}
 	}
 
-	/** @Yass
+	/** 
 	 * If there is only one outgoing transition from a selected state, then this
 	 * state must be selected as well.
 	 */
@@ -404,7 +402,7 @@ public class TaggingModel {
 		}
 	}
 
-	/** @Yass
+	/** 
 	 * Once we have set n as a selected box, we look if all its incoming
 	 * transitions point to TO_BE_REMOVED states. If so, those states are
 	 * recursively made neutral.
@@ -426,7 +424,7 @@ public class TaggingModel {
 		}
 	}
 
-	/** @Yass
+	/** 
 	 * If there is only one incoming transition from a selected state, then this
 	 * state must be selected as well.
 	 */
