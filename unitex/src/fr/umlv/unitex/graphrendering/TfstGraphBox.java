@@ -129,7 +129,7 @@ public class TfstGraphBox extends GenericGraphBox {
 		transduction = infos;
 	}
 	/** @Yass
-	 * This function takes a String and reads up the available integers and assign the values to the box's <code>Bounds</code> field.
+	 * This function reads up the available integers and assign the values to the box's <code>Bounds</code> field.
 	 * 
 	 * @param s
 	 * 			The string holding the bounds' coordinates.
@@ -165,7 +165,7 @@ public class TfstGraphBox extends GenericGraphBox {
 	}
 
 	/** @Yass
-	 * Sets the content of the box with the given sentence.
+	 * Sets the content of the box with the given string.
 	 * 
 	 * @param s
 	 *            the new content
@@ -252,8 +252,7 @@ public class TfstGraphBox extends GenericGraphBox {
 	}
 	
 	/** @Yass
-	 * This method checks if this box and the one given as an argument share the same connecting coordinates,
-	 * i.e. the ending coordinates for the first box and the starting coordinates for the next box, thus being the same token.
+	 * This method checks if this box and the one given as an argument belong to the same token.
 	 * @param box
 	 * 			the next box.
 	 * @return True if both boxes are in the same token, False otherwise

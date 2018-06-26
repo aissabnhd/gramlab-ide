@@ -105,7 +105,7 @@ public class TaggingModel {
 		}
 	}
 
-	/** @yass
+	/** @Yass
 	 * This method must be called when a new sentence automaton has been loaded.
 	 * This method resets the various arrays used in this class by applying all the graphBoxes, including new ones, in them.
 	 */
@@ -149,8 +149,8 @@ public class TaggingModel {
 		}
 	}
 	
-	/**
-	 * 
+	/** @Yass
+	 * This function updates the "factorization" array once the topological sort is applied.
 	 */
 	private void computeFactorizationNodes() {
 		renumber = topologicalSort();
@@ -158,7 +158,7 @@ public class TaggingModel {
 			/*
 			 * If the automaton is not acyclic, then we fail to compute the
 			 * factorization nodes, so we just say that the initial and final
-			 * ones aren.
+			 * ones aren't.
 			 */
 			for (int i = 0; i < factorization.length; i++) {
 				if (boxes[i].type != GenericGraphBox.NORMAL) {
@@ -199,8 +199,9 @@ public class TaggingModel {
 		}
 	}
 	/** @Yass
-	 * The array "incoming" holds the size of all incoming reverse transitions. meaning the size of all outgoing transition.
-	 * @return a topologically sorted version of boxes[], an int array holding the boxes' indexes.
+	 * This function sorts the array "boxes" topologically.
+	 * @return 
+	 * 		a topologically sorted version of boxes[], an int array holding the boxes' indexes.
 	 */
 	private int[] topologicalSort() {
 		renumber = new int[boxes.length];
@@ -246,7 +247,7 @@ public class TaggingModel {
 	}
 	
 	/** @Yass
-	 * Goes through the boxes, checking accessibility and coaccessiblity, and then tagging them
+	 * This function goes through the boxes, checking accessibility and coaccessiblity, and then tagging them
 	 * USELESS if they're neither of those.
 	 * or TO_BE_REMOVED if they were USELESS but became either of those or both. 
 	 */
@@ -271,9 +272,10 @@ public class TaggingModel {
 		}
 	}
 	/** @Yass
-	 * This function takes the Initial state and an empty boolean array and recursively checks if the boxes are accessible, ie
-	 * if there's a set of transitions that link the n box to the Initial state.
-	 * @param current, box index, starts with the Initial state.
+	 * This function recursively checks if the boxes are accessible, ie
+	 * if there's a set of transitions that link the n box to the initial state,
+	 * starting from the initial state.
+	 * @param current, box index, starts with the initial state.
 	 * @param visited, boolean array,values start blank, and are set to True if the index box is indeed accessible.
 	 */
 	private void checkAccessibility(int current, boolean[] visited) {
@@ -286,10 +288,11 @@ public class TaggingModel {
 		}
 	}
 	/** @Yass
-	 * This function takes the Final state and an empty boolean array and recursively checks if the boxes are coaccessible, ie
-	 * if there's a set of transitions that link the n box to the Final state.
+	 * This function recursively checks if the boxes are coaccessible, ie
+	 * if there's a set of transitions that link the n box to the final state,
+	 * starting from the final state.
 	 * This function is basically
-	 * @param current, box index, starts with the Final state.
+	 * @param current, box index, starts with the final state.
 	 * @param visited, boolean array,values start blank, and are set to True if the index box is indeed accessible.
 	 * @param reverse, a representation of the graph but reversed, as to see it as basically a reverse accessibility check.
 	 */
@@ -341,6 +344,11 @@ public class TaggingModel {
 		selectBox(n);
 	}
 	
+	/** @Yass
+	 * This function sets a box's state to SELECTED, and sets all the other boxes on parallel paths
+	 * starting from the last factorization node all the way to the next one to TO_BE_REMOVED
+	 * @param n
+	 */
 	public void selectBox(int n) {
 		if (taggingStates[n] == TaggingState.USELESS) {
 			/*
