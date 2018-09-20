@@ -1252,9 +1252,7 @@ public class GenericGraphBox {
 		if (n_lines == 0) {
 			if (parentGraphicalZone.decorator != null
 					&& parentGraphicalZone.decorator.isLinearTfst()) {
-				if (!ConfigManager.getManager().isKorean(null)) {
-					g.setColor(GraphDecoratorConfig.LINEAR_TFST);
-				}
+				g.setColor(GraphDecoratorConfig.LINEAR_TFST);
 			}
 			GraphicalToolBox.drawLine(g, X_in, Y_in, X_in + 15, Y_in);
 			if (!parentGraphicalZone.getGraphPresentationInfo().isRightToLeft())
@@ -1278,9 +1276,7 @@ public class GenericGraphBox {
 		// and the triangle if necessary
 		if (parentGraphicalZone.decorator != null
 				&& parentGraphicalZone.decorator.isLinearTfst()) {
-			if (!ConfigManager.getManager().isKorean(null)) {
-				g.setColor(GraphDecoratorConfig.LINEAR_TFST);
-			}
+			g.setColor(GraphDecoratorConfig.LINEAR_TFST);
 		} else {
 			g.setColor(params.getForegroundColor());
 		}
@@ -1435,9 +1431,7 @@ public class GenericGraphBox {
 		final Color old = g.getColor();
 		if (parentGraphicalZone.decorator != null
 				&& parentGraphicalZone.decorator.isLinearTfst()) {
-			if (!ConfigManager.getManager().isKorean(null)) {
-				g.setColor(GraphDecoratorConfig.LINEAR_TFST);
-			}
+		g.setColor(GraphDecoratorConfig.LINEAR_TFST);
 		}
 		if (!parentGraphicalZone.getGraphPresentationInfo().isRightToLeft())
 			GraphicalToolBox.drawLine(g, X_in, Y_in, X_in - 10, Y_in);
